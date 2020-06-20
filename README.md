@@ -1,6 +1,8 @@
-# Project 1: Books
+# NOVEL REACTION
 
-NOVEL REACTION is a book review website
+(This was a project for [HarvardX CS50W](https://courses.edx.org/courses/course-v1:HarvardX+CS50W+Web/course/).)
+
+NOVEL REACTION is a web application for reviewing books.
 
 ## Write-Up
 
