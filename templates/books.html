@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+{% block title %}{{ book.title }} by {{ book.author }} | NOVEL REACTION{% endblock %}
+{% block body %}
+    {% if error %}
+    <div class="alert alert-danger alert-dismissible fade show mb-0 text-center" role="alert">
+      <strong>ERROR:</strong> {{ error }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% elif msg %}
+    <div class="alert alert-primary alert-dismissible fade show mb-0 text-center" role="alert">
+      {{ msg }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    <div class="book-page container row mx-auto">
+      <div class="book-box m-2 col-md-3">
+        <img class="book-cover-lg shadow-sm d-block mx-auto" src="http://covers.openlibrary.org/b/isbn/{{ book.isbn }}.jpg" />
+        <div class="book-info">
+          <span class="book-info-heading float-left w-50">ISBN-10</span>
+          <p class="book-isbn float-left w-50">{{ book.isbn }}</p>
+          <span class="book-info-heading float-left w-50">Published</span>
+          <p class="book-published float-left w-50">{{ book.year }}</p>
+          <span class="book-info-heading float-left w-50">Average Rating</span>
+          <p class="book-rating float-left w-50">
+            <a href="https://www.goodreads.com/book/show/{{ data.books[0].id }}">
+              {{ data.books[0].average_rating }} ({{ data.books[0].ratings_count }} ratings) · Goodreads
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="reviews-page col-md">
+        <div>
+          <h1 class="my-0">
+            <a class="text-dark" href="{{ url_for('book', book_id = book.book_id) }}">{{ book.title }}</a>
+          </h1>
+          <p class="mb-0">by <a class="text-dark" href="/search?q={{book.author}}">{{ book.author }}</a></p>
+          <a href="#reviews">See reviews</a>
+        </div>
+        <div class="review-box mt-5">
+          {% if not "username" in session %}
+          <div class="mt-4">
+            To leave a review for <em>{{ book.title }}</em>, 
+            <a href="{{ url_for('register') }}">please sign up</a>.
+          </div>
+          {% else %}
+          <form action="{{ url_for('book', book_id = book.book_id) }}" method="post">
+            <div>
+              <fieldset class="rating">
+                <h3 class="d-inline">My rating:</h3>
+                <input type="radio" id="star5" name="rating" value="5" />
+                <label class="star" for="star5" title="loved it">☆</label>
+                <input type="radio" id="star4" name="rating" value="4" />
+                <label class="star" for="star4" title="liked it">☆</label>
+                <input type="radio" id="star3" name="rating" value="3" />
+                <label class="star" for="star3" title="it was ok">☆</label>
+                <input type="radio" id="star2" name="rating" value="2" />
+                <label class="star" for="star2" title="didn't like it">☆</label>
+                <input type="radio" id="star1" name="rating" value="1" />
+                <label class="star ml-1" for="star1" title="hated it">☆</label>
+              </fieldset>
+            </div>
+            <hr>
+            <h3>Choose up to 3 emoji to react to this book <span class="text-muted">(optional)</span>:</h3>
+            <div class="review-emojis">
+              <ul class="emojis pl-0 mx-auto mb-0">
+                <li>
+                  <input class="choice" type="checkbox" name="emoji" id="heart" value="&#10084;&#65039;" />
+                  <label class="emoji" for="heart">❤️</label>
+                </li> 
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="thumbs-up" value="&#128077;" />
+                  <label class="emoji" for="thumbs-up">👍</label>
+                </li>
+                <li>
+                  <input class="choice" type="checkbox" name="emoji" id="thumbs-down" value="&#128078;" />
+                  <label class="emoji" for="thumbs-down">👎</label>
+                </li> 
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="happy" value="&#128516;" />
+                  <label class="emoji" for="happy">😄</label>
+                </li> 
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="rofl" value="&#129315;" />
+                  <label class="emoji" for="rofl">🤣</label>
+                </li> 
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="kissy" value="&#128536;" />
+                  <label class="emoji" for="kissy">😘</label>
+                </li> 
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="cry" value="&#128557;" />
+                  <label class="emoji" for="cry">😭</label>
+                </li> 
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="omg" value="&#128561;" />
+                  <label class="emoji" for="omg">😱</label>
+                </li> 
+                <li>
+                  <input class="choice" type="checkbox" name="emoji" id="angry" value="&#x1F620;" />
+                  <label class="emoji" for="angry">😠</label>
+                </li>
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="eye-roll" value="&#128580;" />
+                  <label class="emoji" for="eye-roll">🙄</label>
+                </li>
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="yawn" value="&#x1F971;" />
+                  <label class="emoji" for="yawn">🥱</label>
+                </li> 
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="thinker" value="&#129300;" />
+                  <label class="emoji" for="thinker">🤔</label>
+                </li> 
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="nerd" value="&#129299;" />
+                  <label class="emoji" for="nerd">🤓</label>
+                </li> 
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="mind-blown" value="&#129327;" />
+                  <label class="emoji" for="mind-blown">🤯</label>
+                </li> 
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="fire" value="&#128293;" />
+                  <label class="emoji" for="fire">🔥</label>
+                </li>  
+                <li> 
+                  <input class="choice" type="checkbox" name="emoji" id="skull" value="&#128128;" />
+                  <label class="emoji" for="skull">💀</label>
+                </li>
+              </ul>
+            </div>
+            <hr>
+            <h3>Write a review:</h3>
+            <textarea class="review-input" name="review" rows="5" cols="50" placeholder="Share your thoughts here." required></textarea>
+            <div class="review-submit text-right mt-3">
+              <button class="btn btn-dark">Post</button>
+            </div>
+          </form>
+          {% endif %}
+          <a id="reviews" class="anchor"></a>
+          <div>
+            <h4 class="rule mt-3 mb-1">Reviews</h4>
+            {% for review in reviews | reverse %}
+            <div class="speech-bubble">
+              {% if review.rating != None %}
+              <p class="stars">
+                {% for star in range(1, 6) %}
+                {% if star <= review.rating %}&#9733;{% elif star > review.rating %}&#9734;{% endif %}
+                {% endfor %}
+              </p>
+              {% endif %}
+              {{ review.comment }}
+              {% if review.reaction != "" %}<div class="reactions">{{ review.reaction }}</div>{% endif %}
+            </div>
+            <div class="reviewer">
+              {{ review.username }} at <span class="date-stamp">{{ review.time }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

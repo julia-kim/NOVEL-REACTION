@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Novel Reaction</a>
+        </div>
+        <button class="navbar-toggler p-1" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggler">
+          {% set navbar_menus_left = [
+            ('/', 'index', 'Home'),
+            ('/random', 'random', 'Random Pick')
+          ] -%}
+          {% if "username" in session %}
+            {% set navbar_menus_right = [
+              ('#', 'user', session["username"]),
+              ('/logout', 'logout', 'Sign Out')
+            ] -%}
+          {% else %}  
+            {% set navbar_menus_right = [
+              ('/login', 'login', 'Sign In'),
+              ('/register', 'register', 'Sign Up')
+            ] -%}
+          {% endif %}
+          {% set active_page = active_page|default('index') -%}
+          <ul class="nav navbar-nav mr-auto">
+          {% for href, id, caption in navbar_menus_left %}
+            <li class="nav-item">
+              <a class="nav-link{% if id == active_page %} active{% endif %}" href="{{ href }}">{{ caption }}</a>
+            </li>
+          {% endfor %}
+          </ul>
+          <ul class="nav navbar-nav ml-auto">
+          {% for href, id, caption in navbar_menus_right %}
+            <li class="nav-item">
+              <a class="nav-link{% if id == active_page %} active{% endif %}" href="{{ href }}">{{ caption }}</a>
+            </li>
+          {% endfor %}
+          </ul>
+          <form action="{{ url_for('search') }}" class="form-inline" method="get">
+            <div class="input-group">
+              <input class="form-control" type="text" name="q" placeholder="Search books" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-outline-light" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+    {% block body %}{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
+</html>

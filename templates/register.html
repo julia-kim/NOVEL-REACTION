@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% set active_page = "register" %}
+{% block title %}SIGN UP | NOVEL REACTION{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="login-register-container rounded shadow-sm">
+    <div>
+      <h2 class="d-inline">Sign up</h2>
+      <div class="login-register-switch float-right">
+        or <a class="text-dark" href="{{ url_for('login') }}">log in</a>
+      </div>
+    </div>
+    <form action="{{ url_for('register') }}" method="post">
+      <div class="form-group mb-0">
+        <input
+          class="form-control mx-0 mt-4 mb-2"
+          type="text"
+          name="username"
+          placeholder="Username"
+          required
+        />
+        <input
+          class="form-control mx-0 mt-2 mb-2"
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <input
+          class="form-control mx-0 mt-2 mb-3"
+          type="password"
+          name="confirm_password"
+          placeholder="Password Again"
+          required
+        />
+        <button class="btn btn-dark btn-block" type="submit">Sign up</button>
+      </div>
+    </form>
+    {% if error %}
+    <div
+      class="alert alert-danger alert-dismissible fade show mt-3 mb-0"
+      role="alert"
+    >
+      <strong>ERROR:</strong> {{ error }}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% elif msg %}
+    <div
+      class="alert alert-primary alert-dismissible fade show mt-3 mb-0"
+      role="alert"
+    >
+      {{ msg }}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
