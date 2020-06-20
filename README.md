@@ -4,6 +4,8 @@
 
 NOVEL REACTION is a web application for reviewing books.
 
+View app on Heroku: https://novel-reaction.herokuapp.com/
+
 ## Write-Up
 
 - `layout.html` contains the `<head>` section, the navbar, the search bar, and all the necessary Bootstrap files. All the pages in the site inherit `layout.html`.
