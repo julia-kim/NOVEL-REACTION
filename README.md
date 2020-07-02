@@ -22,7 +22,7 @@ View app on Heroku: https://novel-reaction.herokuapp.com/
 
 ## Getting Started
 
-```
+```cmd
 :: Clone repo
 git clone https://github.com/julia-kim/novel-reaction.git
 
