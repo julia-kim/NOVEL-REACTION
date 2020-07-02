@@ -24,17 +24,17 @@ View app on Heroku: https://novel-reaction.herokuapp.com/
 
 ```
 :: Clone repo
-git clone https://github.com/julia-kim/NOVEL-REACTION.git
+git clone https://github.com/julia-kim/novel-reaction.git
 
-cd NOVEL-REACTION
+cd novel-reaction
 
 :: Install all dependencies
 pip install -r requirements.txt
 
 :: Setup environmental variables
-set FLASK_APP = application.py
-set DATABASE_URL = DB URI &:: e.g., postgres://username:password@hostname:port/database
-set FLASK_DEBUG = 1
+set FLASK_APP=application.py
+set DATABASE_URL=<DB URI> &:: e.g., postgres://username:password@hostname:port/database
+set FLASK_DEBUG=1
 
 :: Start up the application
 flask run
