@@ -151,7 +151,7 @@ def book(book_id):
     ).fetchone()
 
     # Get Goodreads review data
-    key = "gL2FGevPdbq58PsUWVQ"
+    key = "tkx2vRJ9ZPVyon6SOpoH3A"
     res = requests.get(
         "https://www.goodreads.com/book/review_counts.json",
         params={"key": key, "isbns": book.isbn},
