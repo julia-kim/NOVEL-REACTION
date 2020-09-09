@@ -1,6 +1,6 @@
 # NOVEL REACTION
 
-(This was a project for [HarvardX CS50W](https://courses.edx.org/courses/course-v1:HarvardX+CS50W+Web/course/).)
+(This is my design and implementation of Project 1 for [HarvardX CS50W 2018](https://courses.edx.org/courses/course-v1:HarvardX+CS50W+Web/course/).)
 
 NOVEL REACTION is a web application for reviewing books.
 
