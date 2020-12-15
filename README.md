@@ -35,6 +35,7 @@ pip install -r requirements.txt
 set FLASK_APP=application.py
 set DATABASE_URL=<DB URI> &:: e.g., postgres://username:password@hostname:port/database
 set FLASK_DEBUG=1
+set GOODREADS_KEY=<GOODREADS API KEY> &:: more info: https://www.goodreads.com/api
 
 :: Start up the application
 flask run
